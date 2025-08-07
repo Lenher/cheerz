@@ -64,9 +64,10 @@ jobs:
         
         # Extract JAR for optimized Docker layers
         mkdir -p build/dependency
-        JAR_FILE=$(ls build/libs/*.jar | head -1)
+        # Select the fat JAR (not the -plain.jar)
+        JAR_FILE=$(ls build/libs/*.jar | grep -v plain | head -1)
         echo "Extracting JAR: $JAR_FILE"
-        (cd build/dependency; jar -xf ../$JAR_FILE)
+        (cd build/dependency; jar -xf ../../$JAR_FILE)
         
         # Verify extraction
         echo "Contents of build/dependency/:"
