@@ -1,6 +1,6 @@
 # Spring Boot Docker Application - Cheerz
 
-Application Spring Boot conteneurisée avec déploiement automatisé sur Google App Engine.
+Application Spring Boot conteneurisée avec déploiement sur Google App Engine.
 
 ## Instructions de déploiement
 
