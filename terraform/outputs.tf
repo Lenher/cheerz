@@ -10,11 +10,5 @@ output "artifact_registry_url" {
 
 output "service_account_email" {
   description = "The service account email for CI/CD"
-  value       = google_service_account.github_actions.email
-}
-
-output "service_account_key" {
-  description = "The service account key for CI/CD (sensitive)"
-  value       = google_service_account_key.github_actions_key.private_key
-  sensitive   = true
+  value       = data.google_service_account.github_actions.email
 }

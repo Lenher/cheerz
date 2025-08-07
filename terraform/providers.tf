@@ -20,6 +20,5 @@ provider "google" {
   project = var.project_id
   region  = var.region
 
-  # Use credentials from environment variable or file
-  credentials = var.credentials_file != "" ? file(var.credentials_file) : null
+  # Will automatically use GOOGLE_APPLICATION_CREDENTIALS env var
 }
