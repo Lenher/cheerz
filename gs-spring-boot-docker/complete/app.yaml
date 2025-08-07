@@ -15,9 +15,5 @@ automatic_scaling:
   cpu_utilization:
     target_utilization: 0.6
 
-network:
-  forwarded_ports:
-    - 8080
-
 env_variables:
   SERVER_PORT: 8080
