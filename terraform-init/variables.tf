@@ -10,8 +10,4 @@ variable "region" {
   default     = "europe-west1"
 }
 
-variable "credentials_file" {
-  description = "Path to GCP credentials JSON file"
-  type        = string
-  default     = ""
-}
+# credentials_file variable removed - using GOOGLE_APPLICATION_CREDENTIALS env var
