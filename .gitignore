@@ -1,6 +1,7 @@
 # Environment files
 .env
 *.env.local
+CLAUDE.md
 
 # Terraform files
 terraform/.terraform/
