@@ -12,7 +12,7 @@ automatic_scaling:
   min_num_instances: 1
   max_num_instances: 10
   cool_down_period_sec: 180
-  target_cpu_utilization: 0.6
+  cpu_target_utilization: 0.6
 
 network:
   forwarded_ports:

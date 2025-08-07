@@ -55,6 +55,13 @@ resource "google_project_service" "cloud_build" {
   disable_on_destroy = false
 }
 
+resource "google_project_service" "app_engine" {
+  project = var.project_id
+  service = "appengine.googleapis.com"
+  
+  disable_on_destroy = false
+}
+
 # Service Account for GitHub Actions (created here with full permissions)
 resource "google_service_account" "github_actions" {
   project      = var.project_id
