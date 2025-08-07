@@ -26,3 +26,28 @@ resource "google_project_iam_member" "github_actions_storage_admin" {
   role    = "roles/storage.admin"
   member  = "serviceAccount:${data.google_service_account.github_actions.email}"
 }
+
+# App Engine Application
+resource "google_app_engine_application" "app" {
+  project     = var.project_id
+  location_id = var.region
+}
+
+# Additional IAM roles for App Engine deployment
+resource "google_project_iam_member" "github_actions_appengine_deployer" {
+  project = var.project_id
+  role    = "roles/appengine.deployer"
+  member  = "serviceAccount:${data.google_service_account.github_actions.email}"
+}
+
+resource "google_project_iam_member" "github_actions_appengine_service_agent" {
+  project = var.project_id
+  role    = "roles/appengine.serviceAgent"
+  member  = "serviceAccount:${data.google_service_account.github_actions.email}"
+}
+
+resource "google_project_iam_member" "github_actions_compute_viewer" {
+  project = var.project_id
+  role    = "roles/compute.viewer"
+  member  = "serviceAccount:${data.google_service_account.github_actions.email}"
+}

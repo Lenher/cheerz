@@ -12,3 +12,9 @@ output "service_account_email" {
   description = "The service account email for CI/CD"
   value       = data.google_service_account.github_actions.email
 }
+
+output "app_engine_url" {
+  description = "The App Engine application URL"
+  value       = "https://${var.project_id}.appspot.com"
+  depends_on  = [google_app_engine_application.app]
+}

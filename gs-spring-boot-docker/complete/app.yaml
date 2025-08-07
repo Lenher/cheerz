@@ -1,0 +1,22 @@
+runtime: custom
+env: flex
+
+service: default
+
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 10
+
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 10
+  cool_down_period_sec: 180
+  target_cpu_utilization: 0.6
+
+network:
+  forwarded_ports:
+    - 8080
+
+env_variables:
+  SERVER_PORT: 8080
