@@ -61,22 +61,18 @@ jobs:
     - name: Configure Docker for Artifact Registry
       run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
 
-    - name: Extract JAR and prepare Docker build
+    - name: Build Docker image with Gradle buildpack
       run: |
         cd gs-spring-boot-docker/complete
-        mkdir -p build/dependency
-        (cd build/dependency; jar -xf ../libs/*.jar)
+        export JAVA_HOME=$JAVA_HOME_17_X64
+        ./gradlew bootBuildImage \
+          --imageName=${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-    - name: Build and push Docker image
+    - name: Tag and push Docker image
       run: |
-        cd gs-spring-boot-docker/complete
-        
-        # Build the Docker image
-        docker build \
-          --build-arg DEPENDENCY=build/dependency \
-          -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
-          -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest \
-          .
+        # Tag as latest
+        docker tag ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
+                   ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
         
         # Push both tags
         docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
