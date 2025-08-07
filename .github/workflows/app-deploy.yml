@@ -34,7 +34,7 @@ jobs:
           ${{ runner.os }}-gradle-
 
     - name: Make gradlew executable
-      run: chmod +x ./gs-spring-boot-docker/complete/gradlew
+      run: chmod +x gs-spring-boot-docker/complete/gradlew
 
     - name: Build application
       run: |
