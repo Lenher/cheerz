@@ -54,11 +54,19 @@ jobs:
     - name: Configure Docker for Artifact Registry
       run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
 
-    - name: Build Docker image with Gradle
+    - name: Extract JAR and build Docker image
       run: |
         cd gs-spring-boot-docker/complete
-        export JAVA_HOME=$JAVA_HOME_17_X64
-        ./gradlew bootBuildImage --imageName=${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        
+        # Extract JAR for optimized Docker layers
+        mkdir -p build/dependency
+        (cd build/dependency; jar -xf ../libs/*.jar)
+        
+        # Build Docker image using Dockerfile
+        docker build \
+          --build-arg DEPENDENCY=build/dependency \
+          -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
+          .
 
     - name: Tag image as latest
       if: github.ref == 'refs/heads/main'
