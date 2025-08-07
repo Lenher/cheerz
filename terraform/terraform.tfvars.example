@@ -1,0 +1,6 @@
+# Copy this file to terraform.tfvars and customize the values
+
+project_id          = "natural-furnace-468312-u6"
+region              = "europe-west1"
+repository_id       = "spring-boot-apps"
+service_account_id  = "github-actions-cicd"

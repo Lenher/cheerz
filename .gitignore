@@ -1,0 +1,25 @@
+# Environment files
+.env
+*.env.local
+
+# Terraform files
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform-init/.terraform/
+terraform-init/.terraform.lock.hcl
+terraform-init/terraform.tfstate
+terraform-init/terraform.tfstate.backup
+
+# Service account keys
+*.json
+sa-key*.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
