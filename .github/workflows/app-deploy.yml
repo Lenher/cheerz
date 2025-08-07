@@ -58,9 +58,19 @@ jobs:
       run: |
         cd gs-spring-boot-docker/complete
         
+        # List generated JARs for debugging
+        echo "Looking for JARs in build/libs/:"
+        ls -la build/libs/
+        
         # Extract JAR for optimized Docker layers
         mkdir -p build/dependency
-        (cd build/dependency; jar -xf ../libs/*.jar)
+        JAR_FILE=$(ls build/libs/*.jar | head -1)
+        echo "Extracting JAR: $JAR_FILE"
+        (cd build/dependency; jar -xf ../$JAR_FILE)
+        
+        # Verify extraction
+        echo "Contents of build/dependency/:"
+        ls -la build/dependency/
         
         # Build Docker image using Dockerfile
         docker build \
