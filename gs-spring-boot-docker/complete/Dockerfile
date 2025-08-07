@@ -1,4 +1,4 @@
-FROM openjdk:17-jre-alpine
+FROM eclipse-temurin:17-jre-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
 ARG DEPENDENCY=build/dependency
