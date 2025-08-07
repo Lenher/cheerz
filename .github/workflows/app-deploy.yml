@@ -1,15 +1,6 @@
 name: 'Build and Deploy Application'
 
 on:
-  push:
-    branches:
-      - main
-      - develop
-    paths:
-      - 'gs-spring-boot-docker/**'
-  pull_request:
-    paths:
-      - 'gs-spring-boot-docker/**'
   workflow_dispatch:
 
 env:
