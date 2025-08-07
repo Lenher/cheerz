@@ -45,6 +45,21 @@ L'application répond "Hello Docker World" sur l'endpoint racine.
 
 **Google App Engine** a été choisi pour son approche **serverless** : pas de gestion du **scaling**, pas de gestion du **load balancing**, et **URL publique sans configuration IAM**. Kubernetes ou des VMs seraient surdimensionnés pour cette petite application. Cela permet de se concentrer uniquement sur le code applicatif.
 
+## Sécurité
+
+### Analyse de vulnérabilités Trivy
+Le pipeline intègre **Trivy**, un scanner de sécurité qui analyse les vulnérabilités dans :
+- L'image Docker construite
+- Les dépendances Java (JARs)  
+- Le système d'exploitation (Alpine Linux)
+
+**Résultats disponibles :**
+- **GitHub Actions logs** : Rapport détaillé dans l'étape security-scan
+- **GitHub Security tab** : Upload SARIF pour suivi des vulnérabilités
+- **Artifacts** : Fichier SARIF téléchargeable pour analyse
+
+Le déploiement est **bloqué automatiquement** si des vulnérabilités CRITICAL/HIGH sont détectées.
+
 ## Améliorations possibles
 
 - **Déploiement automatique** sur push (au lieu de manuel)
