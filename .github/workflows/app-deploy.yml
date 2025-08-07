@@ -102,7 +102,15 @@ jobs:
     - name: Deploy to App Engine
       run: |
         cd gs-spring-boot-docker/complete
-        gcloud app deploy --image-url=${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} --quiet
+        # Deploy using the image from Artifact Registry
+        gcloud app deploy app.yaml \
+          --image-url=${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
+          --version=$(echo ${{ github.sha }} | cut -c1-7) \
+          --no-promote \
+          --quiet
+        
+        # Promote the new version to receive traffic
+        gcloud app services set-traffic default --splits=$(echo ${{ github.sha }} | cut -c1-7)=1 --quiet
 
     - name: Deployment summary
       run: |
