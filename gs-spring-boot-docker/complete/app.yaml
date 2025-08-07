@@ -17,3 +17,5 @@ automatic_scaling:
 
 env_variables:
   SERVER_PORT: 8080
+  BPL_JVM_THREAD_COUNT: 50
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAM=1g -XX:ReservedCodeCacheSize=120M -XX:MaxMetaspaceSize=80M"
